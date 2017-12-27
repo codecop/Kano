@@ -5,7 +5,7 @@ Kano := Object clone do(
 
   run := method(
     self useExternalFile ifTrue(
-      self findKanofiles(Directory with(System launchPath)) foreach(f,
+      self findKanofiles(Directory with(Directory currentWorkingDirectory)) foreach(f,
         Namespaces doFile(f path)))
 
     allArgs := System args exSlice(1) select(exSlice(0, 1) != "-")
@@ -46,8 +46,7 @@ Kano := Object clone do(
   findKanofiles := method(dir,
     dir isNil ifTrue(return(list()))
 
-    files := list(self supportedFiles map(name,
-      File with((dir path) .. name)) detect(exists))
+    files := list(self supportedFiles map(name, File with(dir path .. "/" .. name)) detect(exists))
 
     tasksDir := dir directoryNamed("tasks")
     tasksDir exists ifTrue(
