@@ -32,11 +32,6 @@ Kano := Object clone do(
     ns isNil ifTrue(
       Exception raise("Unknown namespace: " .. nsName .. ". Try -ns option"))
 
-    # If only namespace name is provided, "list" task
-    # should be called.
-    ns hasLocalSlot(taskName) ifFalse(
-      taskName = "list")
-    
     if(ns hasLocalSlot(taskName),
       if(ns getSlot(taskName) type == "Block",
         ns getSlot(taskName) performWithArgList("call", taskArgs))
