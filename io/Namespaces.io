@@ -41,7 +41,8 @@ Namespaces := Object clone do(
 
     V := option(
       """Prints Kano version."""
-      version := Eerie Env named("_base") packageNamed("Kano") config at("meta") at("version")
+      # version := Eerie Env named("_base") packageNamed("Kano") config at("meta") at("version")
+      version := File thisSourceFile parentDirectory parentDirectory at("package.json") contents parseJson at("version")
       ("Kano v" .. version) println)
 
     help := option(
